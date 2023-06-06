@@ -9,4 +9,4 @@ class Name(models.Model):
     sex = models.CharField(max_length=8, choices=SEX_CHOICES)
     firstname = models.CharField(max_length=25)
     birthyear = models.CharField(max_length=4)
-    quantity = models.IntegerField(max_length=8)
+    quantity = models.PositiveIntegerField
