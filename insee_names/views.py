@@ -17,7 +17,6 @@ def index(request):
             'name': c[1]
         } for c in Name.SEX_CHOICES],
     }
-    print(template.origin.name)
     return HttpResponse(template.render(context, request))
 
 # # make sure this view is only accessible on login

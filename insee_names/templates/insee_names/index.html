@@ -4,7 +4,7 @@
   <!-- div that the JavaScript framework will render in -->
   <div id="js-framework-home"></div>  
   <!-- making the department_choices variable avialable in the DOM -->
-  {% comment %} {{ sex_choices|json_script:'sex-choices' }} {% endcomment %}
+  {{ sex_choices|json_script:'sex-choices' }}
   <!-- bundle file with our JavaScript application logic -->
   <script src="{% static 'index-bundle.js' %}"></script>
 {% endblock content %}
