@@ -6,8 +6,9 @@ class NameSerializer(serializers.ModelSerializer):
     #     read_only=True,
     #     default=serializers.CurrentUserDefault()
     # )
-    sex = serializers.ChoiceField(choices=Name.SEX_CHOICES)
+    # sex = serializers.ChoiceField(choices=Name.SEX_CHOICES)
 
     class Meta:
         model = Name
-        fields = ('id', 'sex', 'firstname', 'birthyear', 'quantity')
+        # fields = ['id', 'sex', 'firstname', 'birthyear', 'quantity']
+        fields =  '__all__'

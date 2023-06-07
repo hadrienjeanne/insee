@@ -26,13 +26,20 @@ def index(request):
 class NameViewSet(viewsets.ModelViewSet):
     serializer_class = NameSerializer
 
-    def list(self, request):
-        queryset = Name.objects.all()
-        serializer = NameSerializer()
-        return Response(serializer.data)
+    # def list(self, request):
+    #     queryset = Name.objects.all()
+    #     serializer = NameSerializer(queryset, many=True)
+    #     return Response(serializer.data)
 
-    def retrieve(self, request, pk=None):
-        queryset = Name.objects.all()
-        user = get_object_or_404(queryset, pk=pk)
-        serializer = NameSerializer()
-        return Response(serializer.data)
+    # def retrieve(self, request, pk=None):
+    #     queryset = Name.objects.filter(id=pk)
+    #     # name = get_object_or_404(queryset, pk=pk)
+    #     serializer = NameSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+
+    def get_queryset(self):
+        return Name.objects.all()[31000:31100]
+    
+    def perform_create(self, serializer):
+        serializer.save()
+    
