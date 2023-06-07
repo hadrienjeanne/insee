@@ -15,12 +15,13 @@ from .serializers import NameSerializer
 def index(request):
     # return HttpResponse("Hello, world. You're at the names stats index through insee_names app.")
     template = loader.get_template("insee_names/index.html")
-    context = {
-        'sex_choices': [{
-            'id': c[0],
-            'name': c[1]
-        } for c in Name.SEX_CHOICES],
-    }
+    # context = {
+    #     'sex_choices': [{
+    #         'id': c[0],
+    #         'name': c[1]
+    #     } for c in Name.SEX_CHOICES],
+    # }
+    context = {}
     return HttpResponse(template.render(context, request))
 
 class NameViewSet(viewsets.ModelViewSet):

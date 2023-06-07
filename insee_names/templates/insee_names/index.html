@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
   <!-- div that the JavaScript framework will render in -->
-  <div id="js-framework-home"></div>  
+  <div id="root"></div>  
   <!-- making the department_choices variable avialable in the DOM -->
-  {{ sex_choices|json_script:'sex-choices' }}
+  {% comment %} {{ sex_choices|json_script:'sex-choices' }} {% endcomment %}
   <!-- bundle file with our JavaScript application logic -->
   <script src="{% static 'index-bundle.js' %}"></script>
 {% endblock content %}
