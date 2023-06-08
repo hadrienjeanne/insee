@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { getList } from './list';
+import { getName, setName } from './services';
 
 function NameApp() {
+    const [nameInput, setNameInput] = useState('');
     const [list, setList] = useState([]);
 
     useEffect(() => {
         let mounted = true;
-        getList()
-            .then(items => {
+        getName()
+            .then(names => {
             if(mounted) {
-                setList(items)
+                setList(names)
             }
             })
         return () => mounted = false;
     }, [])
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setName(nameInput)
+    };
+
     return(
         <div className="wrapper">
+            <form onSubmit={handleSubmit}>
+            <label>
+                <p>Choose a name</p>
+                <input type="text" onChange={event => setNameInput(event.target.value)} value={nameInput}/>
+            </label>
+            <button type="submit">Submit</button>
+            </form>
             <h1>Name list</h1>
             <table>
                 <thead>
@@ -26,10 +39,10 @@ function NameApp() {
                     </tr>
                 </thead>
                 <tbody>
-                    {list.map(item => 
-                        <tr key={item.id}>
-                            <td>{item.firstname}</td>
-                            <td>{item.quantity}</td>
+                    {list.map(name =>
+                        <tr key={name.id}>
+                            <td>{name.firstname}</td>
+                            <td>{name.quantity}</td>
                         </tr>
                     )}
                 </tbody>
