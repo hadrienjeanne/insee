@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Name
@@ -24,23 +25,20 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
-class NameViewSet(viewsets.ModelViewSet):
+class NameViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = NameSerializer
+    queryset = Name.objects.all()
+    def list(self, request):
+        queryset = queryset = Name.objects.all()[320230:320330]
+        serializer = NameSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-    # def list(self, request):
-    #     queryset = Name.objects.all()
-    #     serializer = NameSerializer(queryset, many=True)
-    #     return Response(serializer.data)
+    def retrieve(self, request, pk=None):
+        queryset = Name.objects.filter(firstname=pk.upper())
+        # name = get_object_or_404(queryset, pk=pk)
+        serializer = NameSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-    # def retrieve(self, request, pk=None):
-    #     queryset = Name.objects.filter(id=pk)
-    #     # name = get_object_or_404(queryset, pk=pk)
-    #     serializer = NameSerializer(queryset, many=True)
-    #     return Response(serializer.data)
-
-    def get_queryset(self):
-        return Name.objects.all()[31000:31100]
-    
-    def perform_create(self, serializer):
-        serializer.save()
+    # def get_queryset(self):
+    #     return Name.objects.all()[31000:31100]
     
