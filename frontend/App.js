@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getName, setName } from './services';
 
 function NameApp() {
+    const [alert, setAlert] = useState(false);
     const [nameInput, setNameInput] = useState('');
     const [list, setList] = useState([]);
 
@@ -16,9 +17,23 @@ function NameApp() {
         return () => mounted = false;
     }, [])
 
+    // suppression de l'alerte au bout de 1 seconde
+    useEffect(() => { 
+        if(alert) {
+          setTimeout(() => {
+            setAlert(false);
+          }, 1000)
+        }
+      }, [alert])
+    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setName(nameInput)
+        .then(() => {
+            setNameInput('');
+            setAlert(true);
+        })
     };
 
     return(
@@ -30,6 +45,7 @@ function NameApp() {
             </label>
             <button type="submit">Submit</button>
             </form>
+            {alert && <h2>Fetching name stats...</h2>}
             <h1>Name list</h1>
             <table>
                 <thead>
