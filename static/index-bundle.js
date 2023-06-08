@@ -36,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
   \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getName: () => (/* binding */ getName),\n/* harmony export */   setName: () => (/* binding */ setName)\n/* harmony export */ });\nfunction getName() {\n  return fetch('/names/api/').then(function (result) {\n    return result.json();\n  });\n}\nfunction setName(name) {\n  return fetch('/names/api/', {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify({\n      name: name\n    })\n  }).then(function (data) {\n    return data.json();\n  });\n}\n\n//# sourceURL=webpack://insee/./frontend/services.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getName: () => (/* binding */ getName),\n/* harmony export */   setName: () => (/* binding */ setName)\n/* harmony export */ });\nfunction getName() {\n  return fetch('/names/api/').then(function (result) {\n    return result.json();\n  });\n}\nfunction setName(name) {\n  return fetch('/names/api/' + name + '/', {\n    method: 'GET'\n  }).then(function (data) {\n    return data.json();\n  });\n}\n\n//# sourceURL=webpack://insee/./frontend/services.js?");
 
 /***/ }),
 

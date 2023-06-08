@@ -4,12 +4,8 @@ export function getName() {
 }
 
 export function setName(name) {
-  return fetch('/names/api/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ name })
+  return fetch('/names/api/' + name + '/', {
+    method: 'GET'
   })
     .then(data => data.json())
  }
