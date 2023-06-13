@@ -1,10 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { getNames, getNameStats } from './services';
+import ReactEcharts from "echarts-for-react"
 
 function NameApp() {
     const [alert, setAlert] = useState(false);
     const [nameInput, setNameInput] = useState('');
     const [list, setList] = useState([]);
+    const [graph, setGraph] = useState(false);
+    const [yearList, setYearList] = useState([]);
+    const [nameQuantity, setNameQuantity] = useState([]);
+
+    var chartOptions = {
+        title : {
+            text: 'Name data',
+            // subtext: nameInput,
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item'
+        },
+        xAxis: {
+            name: 'Years',
+            data: yearList
+        },
+        yAxis: { 
+            name: 'Number of births',
+        },
+        series: [
+            {
+                type: 'bar',
+                data: nameQuantity
+            }
+        ]
+    }
 
     // useEffect(() => {
     //     let mounted = true;
@@ -30,15 +58,30 @@ function NameApp() {
     const handleSubmit = (e) => {
         e.preventDefault();
         getNameStats(nameInput)
-        .then((names) => {
-            setNameInput('');
+        .then((names) => {            
             setList(names);
+            populateCharts(names);
+            setNameInput('');
             setAlert(true);
+            setGraph(true);
         })
         .catch((e) => {
-            console.log("Error, no name entered");
+            console.log("Error ", e);
         })
     };
+
+    const populateCharts = (names) => {        
+        var yearData = [];
+        var nameData = [];                
+        names.forEach(n => {
+            nameData.push(n.quantity);
+            yearData.push(n.birthyear);
+        })
+        
+        setYearList(yearData);
+        setNameQuantity(nameData);
+        console.log(chartOptions);
+    }    
 
     return(
         <div className="wrapper">
@@ -49,7 +92,9 @@ function NameApp() {
             </label>
             <button type="submit">Submit</button>
             </form>
-            {alert && <h2>Fetching name stats...</h2>}
+            {alert && <h2>Fetching name stats...</h2>}            
+            {graph && <h1>Charts</h1>}
+            {graph && <ReactEcharts option={chartOptions} />}
             <h1>Name list</h1>
             <table>
                 <thead>
