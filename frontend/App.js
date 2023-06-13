@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { getName, setName } from './services';
+import { getNames, getNameStats } from './services';
 
 function NameApp() {
     const [alert, setAlert] = useState(false);
     const [nameInput, setNameInput] = useState('');
     const [list, setList] = useState([]);
 
-    useEffect(() => {
-        let mounted = true;
-        getName()
-            .then(names => {
-            if(mounted) {
-                setList(names)
-            }
-            })
-        return () => mounted = false;
-    }, [])
+    // useEffect(() => {
+    //     let mounted = true;
+    //     getName()
+    //         .then(names => {
+    //         if(mounted) {
+    //             setList(names)
+    //         }
+    //         })
+    //     return () => mounted = false;
+    // }, [])
 
     // suppression de l'alerte au bout de 1 seconde
     useEffect(() => { 
@@ -29,10 +29,14 @@ function NameApp() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setName(nameInput)
-        .then(() => {
+        getNameStats(nameInput)
+        .then((names) => {
             setNameInput('');
+            setList(names);
             setAlert(true);
+        })
+        .catch((e) => {
+            console.log("Error, no name entered");
         })
     };
 
@@ -51,6 +55,7 @@ function NameApp() {
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Year</th>
                         <th>Quantity</th>
                     </tr>
                 </thead>
@@ -58,11 +63,12 @@ function NameApp() {
                     {list.map(name =>
                         <tr key={name.id}>
                             <td>{name.firstname}</td>
+                            <td>{name.birthyear}</td>
                             <td>{name.quantity}</td>
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </table>            
         </div>
     )
 }
