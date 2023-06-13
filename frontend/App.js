@@ -9,11 +9,12 @@ function NameApp() {
     const [graph, setGraph] = useState(false);
     const [yearList, setYearList] = useState([]);
     const [nameQuantity, setNameQuantity] = useState([]);
+    const [name, setName] = useState('');
 
     var chartOptions = {
         title : {
             text: 'Name data',
-            // subtext: nameInput,
+            subtext: name,
             x:'center'
         },
         tooltip : {
@@ -80,7 +81,7 @@ function NameApp() {
         
         setYearList(yearData);
         setNameQuantity(nameData);
-        console.log(chartOptions);
+        setName(nameInput);
     }    
 
     return(
