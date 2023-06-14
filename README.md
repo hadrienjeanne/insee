@@ -57,8 +57,7 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 - [Django](https://www.djangoproject.com/) - Django is a high-level Python web framework
 - [React](https://react.dev/) - React is a javascript library for web and native user interfaces
 - [eCharts](https://echarts.apache.org/) - eCharts is an Open Source JavaScript Visualization Library
-- [tailwind](https://tailwindcss.com/) - Tailwind CSS is a utility-first CSS framework
-<!-- - [Bootstrap](http://getbootstrap.com/) - Extensive list of components and  Bundled Javascript plugins. -->
+- [Boostrap](https://getbootstrap.com/) - Extensive list of components and  Bundled Javascript plugins
 
 
 ## To-do

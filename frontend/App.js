@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getNames, getNameStats } from './services';
 import ReactEcharts from "echarts-for-react"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function NameApp() {
     const [alert, setAlert] = useState(false);
@@ -94,7 +95,7 @@ function NameApp() {
             <button type="submit">Submit</button>
             </form>
             {alert && <h2>Fetching name stats...</h2>}            
-            {graph && <h1>Charts</h1>}
+            {graph && <h1 className="p-5 mb-4 bg-light rounded-3">Charts</h1>}
             {graph && <ReactEcharts option={chartOptions} />}
             <h1>Name list</h1>
             <table>
