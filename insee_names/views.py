@@ -34,11 +34,7 @@ class NameViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        queryset = Name.objects.filter(firstname=pk.upper())
+        queryset = Name.objects.filter(firstname=pk.upper()).exclude(birthyear='XXXX').order_by('birthyear')
         # name = get_object_or_404(queryset, pk=pk)
         serializer = NameSerializer(queryset, many=True)
         return Response(serializer.data)
-
-    # def get_queryset(self):
-    #     return Name.objects.all()[31000:31100]
-    

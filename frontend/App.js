@@ -1,7 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { getNames, getNameStats } from './services';
 import ReactEcharts from "echarts-for-react"
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+    MDBCard,
+    MDBCardBody,
+    MDBCardTitle,
+    MDBCardText,
+    MDBBtn
+  } from 'mdb-react-ui-kit';
+
+function NameChart({ chartOptions }) {
+    var output = 
+        <MDBCard>
+        <MDBCardBody>
+            <MDBCardTitle>Charts</MDBCardTitle>
+            <ReactEcharts option={chartOptions} />
+        </MDBCardBody>
+        </MDBCard>
+        // <div className="card">
+        //     <div className="card-body">
+        //         <h5 className="card-title">Charts</h5>
+        //         <div className="card-text"><ReactEcharts option={chartOptions} /></div>
+        //     </div>
+        // </div>
+    return(output);
+}
+
+function Alert({ message }) {
+    var output = 
+    <MDBToast
+        color='primary'
+        autohide
+        position='top-right'
+        delay={2000}
+        appendToBody
+        // triggerRef={triggerItem}
+        headerContent={
+          <>
+            <strong className='me-auto'>Info</strong>
+            <small>Now</small>
+          </>
+        }
+        bodyContent={ message }
+      />
+    return output;
+}
 
 function NameApp() {
     const [alert, setAlert] = useState(false);
@@ -92,11 +137,10 @@ function NameApp() {
                 <p>Choose a name</p>
                 <input type="text" onChange={event => setNameInput(event.target.value)} value={nameInput}/>
             </label>
-            <button type="submit">Submit</button>
+            <MDBBtn type="submit">Submit</MDBBtn>
             </form>
-            {alert && <h2>Fetching name stats...</h2>}            
-            {graph && <h1 className="p-5 mb-4 bg-light rounded-3">Charts</h1>}
-            {graph && <ReactEcharts option={chartOptions} />}
+            {/* {alert && <h2 className="alert alert-info">Fetching name stats...</h2>}             */}
+            {graph && <NameChart chartOptions={chartOptions}/>}
             <h1>Name list</h1>
             <table>
                 <thead>
